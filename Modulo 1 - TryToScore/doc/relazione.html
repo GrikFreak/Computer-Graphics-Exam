@@ -1,0 +1,230 @@
+<!-- Davide Greco -->
+
+<!doctype html>
+<html>
+	<head>
+		<title>Try to score</title>
+		<style>
+			h1 {
+				color: rgb(162, 0, 255);
+				font-size: 50px;
+			}
+			h1, h2, h3 , h4{
+				position: relative;
+				text-align: center;
+			}
+			p, ul, li {
+				margin-left: 20px;
+				margin-right: 20px;
+				font-size: 20px;
+			}
+			body {
+			  background-color: rgb(149, 248, 149);
+			}
+			div {
+				width:100%;
+				display: flex;
+				justify-content: center;
+			}
+			img {
+				margin: 5px;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<h1>Try to SCORE!!</h1>
+		<h2>Progetto per il corso di Fondamenti di Computer Graphics</h2>
+		<h3>Davide Greco</h3>
+		<h4>Matr. 0001001580 - Email: davide.greco4@studio.unibo.it</h4>
+		<h4>C.d.S. Magistrale in Ingegneria Informatica A.A.2021/22</h4>
+		
+		<div>
+			<img src="images\scena.png" height="550" >
+		</div>
+		
+		<br>
+		<h2>Descrizione</h2>
+
+		<p>
+			<p>
+				Lo scopo del gioco è quello di completare un percorso ad ostacoli e di segnare all'interno della porta. La scena è ambientata nella Scala del calcio: lo stadio Giuseppe Meazza (San Siro).
+				Colpendo l'immagine posta in mezzo al campo, che raffigura come svolgere il percorso, verranno esposte quelle che sono le istruzioni precise per arrivare alla porta. Infatti, senza aver completato tutto il percorso, il Gol non sarà valido.
+			</p>
+			<p>
+			In ordine bisogna:
+			<li>Fare uno slalom attorno ai coni</li>
+			<li>Passare in mezzo ai primi due paletti e poi oltrepassare il terzo a destra/sinistra</li>
+			<li>Saltare l'ostacolo basso</li>
+			<li>Superare a destra/sinistra la sagoma del difensore</li>
+			</p>
+			<p>
+			Una volta terminate con successo queste azioni sarà possibile segnare tirando in porta.
+			Una volta segnato, verremo riportati al punto iniziale.
+			Qui avremo la possibilità di riprovare il percorso, oppure di girare per lo stadio.
+			</p>
+		</p>
+		<br>
+		<br>
+		<h2>Ambiente</h2>
+		
+		<div>
+			<img src="images\mappa.jpg" height="250" >
+			<img src="images\world.jpg" height="250" >
+			<img src="images\stadio.png" height="250" >
+		</div>
+		
+		<p>
+			Per realizzare lo stadio è stata creata una skybox tramite un cubo, al quale è stata applicata la texture di San Siro.<br>
+			Le dimensioni sono state modificate per renderlo un parallelepipedo, per simulare la struttura di un campo da calcio. 
+			Le dimensioni non sono infinite, per cui c'è il rischio che la palla cada nel vuoto, a tal proposito è stato inserito un apposito controllo:
+			la palla viene fermata, le sue componenti di velocita e acc vengono azzerate e la sua posizione torna indietro di qualche px.
+		</p>
+		
+		<p>	
+			Per terminare la costruzione dell'ambiente è stato inserito un piano rettangolare, al quale è stata applicata la texture del campo da calcio. 
+			La palla non può andare sotto di esso e non può uscire dai limiti dello stadio.
+		</p>
+		<div>
+			<img src="images\TTS.jpg" height="250" >
+			<img src="images\ostacoli.png" height="250" >
+		</div>
+		<p>	
+			L'ambiente viene poi arricchito di oggetti, al quale ad ognuno viene applicata una texture monocromatica per semplicità. 
+			Infatti, il lavoro si è concentrato particolarmente sulla meccanica di gioco e sulla creazione di ogni oggetto presente sulla scena.
+			Partendo dai conetti, sono 5 e posti in sequenza al centro del campo, 3 paletti, un ostacolo basso, una sagoma di un giocatore e infine le due porte.
+			<br>
+			Inolte, è stato aggiunto un piano verticale, che raffigura un giocatore di calcio e le istruzioni per vincere, viene infatti descritto il percorso da seguire 
+			per poter vincere il gioco. Colpendo questo piano verrano poi visualizzate nel dettaglio le regole.
+			<br>
+			Per semplicità sono state applicate agli oggetti delle texture monocromatiche: quasi tutti gli oggetti all'interno della scena posseggono 
+			un colore unico, tranne che il pallone. Per sfruttare questo tipo di texture, a vantaggio del pallone, è stata introdotta una funzionalità su esso.
+
+			<br>
+			Una delle peculiarità della palla è che può cambiare texture durante il gioco, possono essere cammbiate fino a 5 texture sulla palla.
+			Attraverso il rispettivo tasto sulla GUI, è possibile cambiare la texture della palla, una volta arrivati alla quinta, riparte da zero.
+			<br>
+			Un'implementazione futura può essere sicuramente quella di migliorare le textures di alcuni oggetti per renderli il più fedeli possibili alla realtà, come la palla con i pentagoni neri e 
+			la porta con la rete di un colore diverso dal bianco.
+		</p>
+		<br>
+		<br>
+		<h2>Illuminazione e ombre</h2>
+		
+		<div>
+			<img src="images\ombra1.png" height="220" >
+			<img src="images\ombra2.png" height="220" >
+		</div>
+
+		<div>
+			<img src="images\ombra3.png" height="220" >
+			<img src="images\ombra4.png" height="220" >
+		</div>
+		
+		<p>	
+			Per illuminare lo stadio, è stata posta una luce che simula il sole sulla sommità del mondo.
+			La luce è direzionale e, colpendo gli oggetti, grazie alla depth_texture, sfrutta le coordinate di
+			profondità per proiettare le ombre sul campo. E' possibile modificare la posizione del sole all'interno della scena, 
+			per scegliere l'illuminazione che si preferisce.
+			<br>
+			Le ombre proiettate sul piano, però, sono pixelate, a tal proposito un'implementazione futura potrebbe essere quella di addolcire i contorni delle ombre prodotte.
+			Nonostante ciò il risultato ottenuto è accettabile.
+
+		</p>
+		<br>
+		<br>
+		<h2>Oggetti in movimento</h2>
+		
+		<div>
+			<img src="images\porta.png" height="300" >
+		</div>
+		
+		<p>	
+			L'oggetto in movimento all'interno della scena è la palla, alla quale vengono applicate le relative implementazioni fisice
+			(sfruttando quelle fornite a lezione riguardanti l'auto, soprattuto per la fisica delle ruote).
+			La palla infatti viene mossa, con i divuti cambiamenti come se fosse una ruota dell'auto. Inoltre è stata aggiunta la possibilità
+			di saltare e tirare: il salto è stato curato in maniera approssimativa sulle leggi fisiche, per semplicità, ma la resa ottenuta è comunque buona.
+			Infatti, il salto continua se viene premuto il tasto del salto, la caduta non prevede considerazioni sulla forza di gravità, ma banalmente cade ad una velocità più alta di quella con cui ha saltato.
+			In futuro, si potrebbe pensare di modificare questo sistema per renderlo più realistico, andando ad implementare un sistema di press-jump, facendo toccare alla palla
+			un picco di altezza massimo e di farla cadere con le dovute leggi fisiche.
+			Il tiro, invece, va ad aumentare la velocità dell'oggetto sul piano verso cui la palla è rivolta. Non ha particolare utilità ai fini del gioco, se non quella di muoversi più velocemente nella scena, ma nell'insieme delle regole era corretto inserirlo.
+			<br><br>
+			Alla palla è stata aggiunta la possibilità di poter cambiare texture durante il gioco, infatti, con l'apposito bottone della GUI, alla palla viene assegnata
+			una nuova texture e viene renderizzata nuovamente all'interno della scena (è stata gestita come un oggetto separato nel rendering, per evitare di dover ricaricare nella scena tutti gli oggetti, andando ad aggiungere computazione).
+			<br>		
+		</p>
+		<br>
+		<br>
+		<h2>Interazione con la GUI</h2>
+		
+		<p>
+			All'utente sono permesse diverse azioni, fruibili sia da PC che da Mobile.
+			L'interfaccia si presenta attraverso una canvas in cui si vede la scena e con cui si può 
+			interagire in diversi modi:
+		</p>	
+			<ul>
+				<li>Attraverso la tastiera</li>
+				<li>Attraverso il mouse</li>
+				<li>Attraverso il touchscreen (nel caso mobile)</li>
+			</ul>
+		<h3>Versione su Web</h3>
+		
+		<div>
+			<img src="images\web.png" height="300" >
+			<img src="images\controlloPannello.png" height="300" >
+		</div>
+		<p>
+			Per poter muovere la palla all'interno della scena è necessario utilizzare la tastiera:
+		</p>
+		<ul>
+			<li>Tasto W: accelerare in avanti</li>
+			<li>Tasto S: accelerare all'indietro</li>
+			<li>Tasto A: giro a sinistra</li>
+			<li>Tasto D: giro a destra</li>
+			<li>Barra Spaziatrice: effettuo il salto</li>
+			<li>Tasto Invio: effettuo un tiro</li>
+		</ul>
+		<p>
+			<br>
+			La barra spaziatrice si può sempre premere, la pressione continua del tasto porterà ad effettuare un salto più in alto.
+			Una volta rilasciato, la palla tornerà a terra velocemente.
+			Il tasto invio invece, basta premerlo una volta, per vedere effettuato il tiro.
+		</p>
+		<p>
+			In alto a destra sono presenti sei bottoni e un pannello di controllo fornito a lezione.
+			I bottoni "Increade fov" e "Decrease fov" permettono di aumentare/diminuire il fov, mentre il bottone "First Person" permette la palla quasi come se fosse in prima persona.
+			I due bottoni "Change theta" e "Change phi" permetto di cambiare gli angoli con cui la camera riprenderà la scena, grazie all'utilizzo del mouse.<br>
+			Gli slider presenti all'interno del pannello di controllo permettono invece di modificare la posizione del sole nella scena, di aumentare
+			e diminuire la distanza della camera dal pallone e di modficare l'intensità della luce e delle ombre.
+			Da notare che questi parametri vengono settati inizialmente per una resa ottimale del gioco.
+			Inoltre, è stato aggiunto il bottone "Change ball texture" che permette di poter selezionare la texture che più ci piace da applicare alla palla; basta premerlo e ne verrà selezionata una nuova (fra 5).
+		</p>
+		<p>
+			Infine, per avere una visione più globale della palla, è possibile utilizzare il drag del 
+			mouse per modificare la visuale. L'utilizzo di questo tipo di funzione è temporaneo, quando verrà 
+			rilasciato il mouse, si ritornerà alla visuale di default.
+		</p>
+		<p>
+			In basso a destra, all'interno del riquadro rosso è possibile vedere una legenda dei comandi per muovere la palla all'interno della scena.
+		</p>
+		<br>
+		<h3>Versione da Mobile</h3>
+		<div>
+			<img src="images\mobile.png" height="300" >
+		</div>
+		<p>
+			Poiché da mobile non è possibile utilizzare la tastiera, sui lati della canvas sono stati posti
+			dei bottoni.
+			A sinistra abbiamo i bottoni "SX" e "DX" che permettono di cambiare la direzione della palla, sulla destra abbiamo "A" e "R" per poter accelarare in avanti e indietro.
+			Infine, sopra, i due tasti "Salto" e "Tiro" per le due relative azioni. 
+			Come per la tastiera, per muovere al meglio la palla, è necessario utilizzare una combinazione di tasti (es. A + SX) per 
+			potersi muovere al meglio dentro la scena.<br>
+			La posizione di questi sei bottoni è stata scelta come compromesso fra usabilità e comodità.
+		</p>
+		<p>		
+			Infatti, ogni funzionalità della GUI da Web è presente anche sulla GUI mobile.
+		</p>
+		
+		
+	
+	</body>
